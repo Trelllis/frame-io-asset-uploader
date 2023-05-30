@@ -405,7 +405,7 @@
       .then(askToCreateNewAsset)
       .catch((e) => {
         reportError('ERROR in handleSignedUploadUrlDetailsMessage(): error in a chain of promises: uploadFile -> askToCreateNewAsset', e)
-        setErrorState('#102')
+        // setErrorState('#102') // don't override actual error code (like #104). at this point error is already handled
         return
       })
   }
