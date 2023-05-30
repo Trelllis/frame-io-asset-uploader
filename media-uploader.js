@@ -413,7 +413,7 @@
   function handleCreatedAssetIdMessage(eventObject) {
     const error = eventObject?.error
     const assetId = eventObject?.data
-    if (error) {
+    if (error || !assetId) {
       reportError('ERROR in handleCreatedAssetIdMessage(): could not get created asset Id')
       setErrorState('#103')
       return
