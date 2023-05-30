@@ -197,11 +197,11 @@
   
   // auto-insert previously saved username (*)
   usernameInputEl.value = loadPreviousUsername() || ''
-  // hide loading image
+  // hide loading image if not yet hidden
   loadingImageEl.removeAttribute('data-rendered')
-  // hide loading message
+  // hide loading message if not yet hidden
   loadingMessageEl.removeAttribute('data-rendered')
-  // hide error messages
+  // hide error messages if not yet hidden
   errorMessageEl.removeAttribute('data-rendered')
   fileIsTooBigMessageEl.removeAttribute('data-rendered')
   
