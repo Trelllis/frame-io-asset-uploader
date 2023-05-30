@@ -1,0 +1,257 @@
+<style>
+#sociata-retool-app-container {
+  display: none;
+  position: relative;
+  width: 200px;
+  height: 400px;
+}
+#sociata-retool-app-container::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 70px;
+  display: block;
+  content: "";
+  background: #000000;
+}
+</style>
+
+<div id='sociata-retool-app-container'></div>
+
+
+<style>
+/* this is a parent embed div */
+.sociata-mac-upload-form-wrapper {
+  width: 100%;
+}
+
+.sociata-social-marketing-content-uploader {
+  max-width: 600px;
+  width: 100%;
+  transition: opacity 0.2s;
+}
+
+.sociata-form-title {
+  margin-bottom: 10px;
+  line-height: 1.4;
+  font-size: 22px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.sociata-username-input {
+  width: 100%;
+  padding: 8px 16px;
+  line-height: 1.5;
+  font-size: 20px;
+  font-weight: 400;
+  color: #FFFFFF;
+  background: #3A3A3A;
+  border-radius: 5px;
+  border: none;
+  transition: all 0.2s;
+}
+.sociata-username-input::placeholder {
+  color: grey;
+}
+.sociata-username-input[disabled] {
+  opacity: 0.5;
+}
+
+.sociata-file-selector {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+@media only screen and (max-width: 540px) {
+  .sociata-file-selector {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.sociata-select-file-button {
+  display: block;
+  margin-right: 20px;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #fff;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #FFFFFF;
+  transition: all 0.2s;
+}
+.sociata-select-file-button[disabled] {
+  opacity: 0.5;
+}
+@media only screen and (max-width: 540px) {
+  .sociata-select-file-button {
+    margin-right: 0;
+  }
+}
+
+.sociata-selected-file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.4;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+}
+.sociata-selected-file-name[data-dimmed] {
+  opacity: 0.5;
+}
+@media only screen and (max-width: 540px) {
+  .sociata-selected-file-name {
+    padding: 18px 0 10px;
+  }
+}
+
+.sociata-file-is-too-big-message {
+  display: none;
+  margin-top: 10px;
+  line-height: 1.4;
+  font-size: 12px;
+  font-weight: 400;
+  color: #FF3131;
+}
+.sociata-file-is-too-big-message[data-rendered] {
+  display: block;
+}
+
+.sociata-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+@media only screen and (max-width: 540px) {
+  .sociata-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.sociata-submit-button {
+  display: block;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #fff;
+  background-color: #dd476d;
+  border-radius: 4px;
+  border: none;
+  transition: all 0.2s;
+}
+.sociata-submit-button[disabled] {
+  opacity: 0.5;
+}
+
+.sociata-loading-img {
+  display: none;
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  transition: all 0.2s;
+}
+.sociata-loading-img[data-rendered] {
+  display: block;
+}
+@media only screen and (max-width: 540px) {
+  .sociata-loading-img {
+    position: relative;
+    left: -10px;
+    margin-top: 10px;
+    margin-left: 0;
+  }
+}
+
+.sociata-status-message-pending {
+  display: none;
+  margin-top: 20px;
+  line-height: 1.4;
+  font-size: 14px;
+  font-weight: 400;
+  color: #ddd;
+}
+.sociata-status-message-pending[data-rendered] {
+  display: block;
+}
+@media only screen and (max-width: 540px) {
+  .sociata-status-message-pending {
+    margin-top: 0;
+  }
+}
+
+.sociata-status-message-error {
+  display: none;
+  margin-top: 20px;
+  line-height: 1.4;
+  font-size: 14px;
+  font-weight: 400;
+  color: #FF3131;
+}
+.sociata-status-message-error[data-rendered] {
+  display: block;
+}
+
+
+.sociata-global-critical-error {
+  display: none;
+  margin-top: 20px;
+  line-height: 1.4;
+  font-size: 20px;
+  font-weight: 500;
+  color: #FF3131;
+}
+.sociata-global-critical-error[data-rendered] {
+  display: block;
+}
+</style>
+
+
+<div class="sociata-social-marketing-content-uploader" data-sociata-social-marketing-content-uploader>
+  <div class="sociata-form-title">Your Tiktok handle</div>
+  <input type="text" data-sociata-username-input-element class="sociata-username-input" placeholder="@username"/>
+  <input type="file" data-sociata-file-input-element style="display: none"/>
+  <div class="sociata-file-selector">
+    <button class="sociata-select-file-button" data-sociata-select-file-button>SELECT VIDEO</button>
+    <div class="sociata-selected-file-name" data-sociata-selected-file-name data-dimmed="true">No file selected</div>
+  </div>
+  <div class="sociata-file-is-too-big-message" data-sociata-file-is-too-big-message data-rendered data-hide-on-page-load>File is too big, it should be less than 1.2Gb</div>
+  <div class="sociata-actions">
+    <button class="sociata-submit-button" data-sociata-submit-button disabled="true">UPLOAD</button>
+    <img src="https://uploads-ssl.webflow.com/5fb2352835398856af006474/646c8f1219c19a4236dd36bc_loader-dotted.svg" class="sociata-loading-img" data-sociata-loading-img data-rendered data-hide-on-page-load />
+  </div>
+  <div class="sociata-status-message-pending" data-sociata-status-message-pending data-rendered data-hide-on-page-load>
+    Video uploading, please be patient...
+  </div>
+  <div class="sociata-status-message-error" data-sociata-status-message-error data-rendered data-hide-on-page-load>
+    Something went wrong, refresh page and try again please. <span data-sociata-error-code></span>
+  </div>
+</div>
+
+<div class="sociata-global-critical-error" data-sociata-global-critical-error data-rendered data-hide-on-page-load>
+  Something went wrong, refresh page and try again please. <span data-sociata-global-error-code></span>
+</div>
+
+
+<script>
+// must be same as in Retool Frame.IO resource
+// currently it's hardcoded in Retool
+// TODO: use this as new parameter when calling createNewAsset()
+window.sociataFrameIoFolderAssetId = 'xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxx'
+
+// hide some elements on initial load
+// (error messages, spinner image, etc)
+document.querySelectorAll('[data-hide-on-page-load]')?.forEach(el => {
+  el.removeAttribute('data-hide-on-page-load')
+  el.removeAttribute('data-rendered')
+})
+</script>
