@@ -15,7 +15,8 @@
   // P.S. This snippet is more 10k charactes, so it cannot be used in Weblow's Embed
   // custom code block. So it has to be stored in GitHub and hosted somehow.
   
-  // This snippet requires a custom code block placed above it with all the HTML and CSS.
+  // This snippet requires a custom code block placed above it with all the HTML and CSS for the form.
+  // An example of such form can be found in sample-form.html
 
   // How it works? (briefly)
   // 1. Prepare the form (add event listeners, initialize model variables, ...)
