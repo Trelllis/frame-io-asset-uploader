@@ -397,7 +397,7 @@
     const error = eventObject?.error
     const signedUrlDetails = eventObject?.data
     if (error) {
-      reportError('ERROR in handleSignedUploadUrlDetailsMessage(): could not get signed upload URL details')
+      reportError('ERROR in handleSignedUploadUrlDetailsMessage(): could not get signed upload URL details', error)
       setErrorState('#101')
       return
     }
@@ -414,7 +414,7 @@
     const error = eventObject?.error
     const assetId = eventObject?.data
     if (error || !assetId) {
-      reportError('ERROR in handleCreatedAssetIdMessage(): could not get created asset Id')
+      reportError('ERROR in handleCreatedAssetIdMessage(): could not get created asset Id', error)
       setErrorState('#103')
       return
     }
