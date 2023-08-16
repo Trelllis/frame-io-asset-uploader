@@ -435,12 +435,13 @@
   }
 
   function askToCreateNewAsset({ fileName, fileType, sourceUrl }) {
-    if (!fileName || !fileType || !sourceUrl) {
-      reportError(`ERROR in askToCreateNewAsset(): one or more params are missing: ${JSON.stringify({ fileName, fileType, sourceUrl })}`)
+    const assetId = window.sociataFrameIoFolderAssetId // set up globally in Webflow's custom code block
+    if (!fileName || !fileType || !sourceUrl || !assetId) {
+      reportError(`ERROR in askToCreateNewAsset(): one or more params are missing: ${JSON.stringify({ fileName, fileType, sourceUrl, assetId })}`)
       displayGlobalCriticalErrorState('#015')
       return
     }
-    sendMessageToRetoolApp({ type: 'createAsset', fileName, fileType, sourceUrl })
+    sendMessageToRetoolApp({ type: 'createAsset', fileName, fileType, sourceUrl, assetId })
   }
 
   function sendMessageToRetoolApp(eventObject) {
