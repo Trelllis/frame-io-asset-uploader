@@ -166,14 +166,14 @@
     return
   }
 
-  let retoolIframeEl // set it later. need to wait until Retool Iframe is added on the page
+  // let retoolIframeEl // set it later. need to wait until Retool Iframe is added on the page
 
-  function setRetoolIframeEl() {
-    retoolIframeEl = document.querySelector('iframe[src*="sociata.retool.com"]')
-    if (retoolIframeEl) return
-    reportError('ERROR in setRetoolIframeEl(): cannot find iframe[src*="sociata.retool.com"]')
-    displayGlobalCriticalErrorState('#012')
-  }
+  // function setRetoolIframeEl() {
+  //   retoolIframeEl = document.querySelector('iframe[src*="sociata.retool.com"]')
+  //   if (retoolIframeEl) return
+  //   reportError('ERROR in setRetoolIframeEl(): cannot find iframe[src*="sociata.retool.com"]')
+  //   displayGlobalCriticalErrorState('#012')
+  // }
 
 
   // model variables, should be in sync with what user types
@@ -189,9 +189,9 @@
   let isFileTooBig = false // more than 1.25 Gb (would be computed property in Vue)
 
   // needed to defer calling askForSignedUrlDetails() in case Retool App is taking long time to load
-  let wasSubmitButtonClicked = false
+  // let wasSubmitButtonClicked = false
   // true when 'retoolAppIsReady' message has been received AND retoolIframeEl is defined
-  let isRetoolAppReady = false
+  // let isRetoolAppReady = false
   
   
   // prepare the form to its first rendering
@@ -252,11 +252,11 @@
     unsetErrorState()
     enterLoadingState()
 
-    if (!isRetoolAppReady) {
-      // wait until Retool App loads,
-      // then try again
-      return
-    }
+    // if (!isRetoolAppReady) {
+    //   // wait until Retool App loads,
+    //   // then try again
+    //   return
+    // }
     askForSignedUrlDetails()
   })
   
@@ -340,59 +340,59 @@
   // now it's time to handle everything related to the Retool App
   
   // initialize Retool App
-  window.retool.RetoolDashboard(
-    document.getElementById('sociata-retool-app-container'),
-    'https://sociata.retool.com/embedded/public/ce07131c-cd0a-451d-aa94-dbade6ba4f08'
-  )
+  // window.retool.RetoolDashboard(
+  //   document.getElementById('sociata-retool-app-container'),
+  //   'https://sociata.retool.com/embedded/public/ce07131c-cd0a-451d-aa94-dbade6ba4f08'
+  // )
 
   // we can't wait infinitelly until Retool App loads, so
   // let's consider it's failed if it's not loaded withing 1 min
-  const maxWaitingTimeUntilRetoolAppIsReadyInMs = 1000 * 60 // 1 min
-  setTimeout(() => {
-    if (isRetoolAppReady) return
-    reportError(`ERROR while initializing Retool App: maximum waiting time of ${maxWaitingTimeUntilRetoolAppIsReadyInMs} is reached. Retool App is still not ready`)
-    displayGlobalCriticalErrorState('#013')
-  }, maxWaitingTimeUntilRetoolAppIsReadyInMs)
+  // const maxWaitingTimeUntilRetoolAppIsReadyInMs = 1000 * 60 // 1 min
+  // setTimeout(() => {
+  //   if (isRetoolAppReady) return
+  //   reportError(`ERROR while initializing Retool App: maximum waiting time of ${maxWaitingTimeUntilRetoolAppIsReadyInMs} is reached. Retool App is still not ready`)
+  //   displayGlobalCriticalErrorState('#013')
+  // }, maxWaitingTimeUntilRetoolAppIsReadyInMs)
   
 
 
   // set up communication channel with Retool App using postMessage protocol.
   // it works now, but its future reliability cannot be guaranteed, i think
-  window.addEventListener('message', async (event) => {
-    if (event.origin !== 'https://sociata.retool.com') return
+  // window.addEventListener('message', async (event) => {
+  //   if (event.origin !== 'https://sociata.retool.com') return
 
-    log(`Received message from Retool App: ${JSON.stringify(event.data)}`, event)
+  //   log(`Received message from Retool App: ${JSON.stringify(event.data)}`, event)
     
-    const eventObject = event.data
-    const type = eventObject?.type
+  //   const eventObject = event.data
+  //   const type = eventObject?.type
 
-    switch (type) {
-      case 'retoolAppIsReady': {
-        handleRetoolAppIsReadyMessage()
-        return
-      }
-      case 'signedUploadURLDetails': {
-        handleSignedUploadUrlDetailsMessage(eventObject)
-        return
-      }
-      case 'createdAssetId': {
-        handleCreatedAssetIdMessage(eventObject)
-        return
-      }
-    }
-  })
+  //   switch (type) {
+  //     case 'retoolAppIsReady': {
+  //       handleRetoolAppIsReadyMessage()
+  //       return
+  //     }
+  //     case 'signedUploadURLDetails': {
+  //       handleSignedUploadUrlDetailsMessage(eventObject)
+  //       return
+  //     }
+  //     case 'createdAssetId': {
+  //       handleCreatedAssetIdMessage(eventObject)
+  //       return
+  //     }
+  //   }
+  // })
 
-  function handleRetoolAppIsReadyMessage() {
-    setRetoolIframeEl()
-    if (!retoolIframeEl) return // error is already handled in setRetoolIframeEl()
-    isRetoolAppReady = true
-    log('Retool App is ready')
-    if (wasSubmitButtonClicked) {
-      // this call was deferred
-      // until Retool App is ready
-      askForSignedUrlDetails()
-    }
-  }
+  // function handleRetoolAppIsReadyMessage() {
+  //   setRetoolIframeEl()
+  //   if (!retoolIframeEl) return // error is already handled in setRetoolIframeEl()
+  //   isRetoolAppReady = true
+  //   log('Retool App is ready')
+  //   if (wasSubmitButtonClicked) {
+  //     // this call was deferred
+  //     // until Retool App is ready
+  //     askForSignedUrlDetails()
+  //   }
+  // }
 
   function handleSignedUploadUrlDetailsMessage(eventObject) {
     const error = eventObject?.error
@@ -444,22 +444,62 @@
     sendMessageToRetoolApp({ type: 'createAsset', fileName, fileType, sourceUrl, assetId })
   }
 
+  // function sendMessageToRetoolApp(eventObject) {
+  //   if (!retoolIframeEl) {
+  //     reportError('ERROR in sendMessageToRetoolApp(): retoolIframeEl is not defined')
+  //     displayGlobalCriticalErrorState('#016')
+  //     return
+  //   }
+  //   try {
+  //     // WARNING! undocumented feature, i have found it accidentally.
+  //     // cannot be considered reliable by any means. will probably break in future
+  //     retoolIframeEl.contentWindow[1].postMessage(eventObject, '*')
+  //   } catch (e) {
+  //     reportError(`ERROR in sendMessageToRetoolApp(): cannot postMessage to Retool iFrame with the following event object: ${JSON.stringify(eventObject)}`)
+  //     displayGlobalCriticalErrorState('#017')
+  //     return
+  //   }
+  // }
+
   function sendMessageToRetoolApp(eventObject) {
-    if (!retoolIframeEl) {
-      reportError('ERROR in sendMessageToRetoolApp(): retoolIframeEl is not defined')
-      displayGlobalCriticalErrorState('#016')
+    if (eventObject.type === 'getSignedUploadURL') {
+      const { fileName } = eventObject
+      fetch(`https://europe-west3-trellis-production.cloudfunctions.net/get-upload-url?filename=${fileName}`, {
+        "method": "GET",
+        "mode": "cors",
+      })
+        .then(res => res.json())
+        .then(json => handleSignedUploadUrlDetailsMessage({ error: null, data: json.data }))
+        .catch(err => handleSignedUploadUrlDetailsMessage({ error: err, data: null }))
       return
     }
-    try {
-      // WARNING! undocumented feature, i have found it accidentally.
-      // cannot be considered reliable by any means. will probably break in future
-      retoolIframeEl.contentWindow[1].postMessage(eventObject, '*')
-    } catch (e) {
-      reportError(`ERROR in sendMessageToRetoolApp(): cannot postMessage to Retool iFrame with the following event object: ${JSON.stringify(eventObject)}`)
-      displayGlobalCriticalErrorState('#017')
+
+    if (eventObject.type === 'createAsset') {
+      const { fileName, fileType, sourceUrl, assetId } = eventObject
+
+      fetch(" https://europe-west3-trellis-production.cloudfunctions.net/create-frame-io-asset", {
+        "body": JSON.stringify({
+          body: {
+            name: fileName,
+            type: 'file',
+            filetype: fileType,
+            source: {
+              url: sourceUrl,
+            },
+          },
+          asset_id: assetId, // parent folder id
+        }),
+        "method": "POST",
+        "mode": "cors",
+      })
+        .then(res => res.json())
+        .then(json => handleCreatedAssetIdMessage({ error: null, data: json.id }))
+        .catch(err => handleCreatedAssetIdMessage({ error: err, data: null }))
       return
     }
   }
+
+
   
   
   
@@ -629,3 +669,4 @@
     window.removeEventListener('click', onClickAnywhere)
   }
 })();
+
