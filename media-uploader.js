@@ -464,7 +464,8 @@
   function sendMessageToRetoolApp(eventObject) {
     if (eventObject.type === 'getSignedUploadURL') {
       const { fileName } = eventObject
-      fetch(`https://europe-west3-trellis-production.cloudfunctions.net/get-upload-url?filename=${fileName}`, {
+      const fileNameBase64Encoded = btoa(fileName) // looks like BE doesn't like spaces in the filename
+      fetch(`https://europe-west3-trellis-production.cloudfunctions.net/get-upload-url?filename=${fileNameBase64Encoded}`, {
         "method": "GET",
         "mode": "cors",
       })
