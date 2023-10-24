@@ -266,7 +266,7 @@
   
   function checkIsFileTooBig() {
     if (!theFileSize) return false
-    return theFileSize > 1024 * 1024 * 1024 * 1.25 /* 1.25 Gb */
+    return theFileSize > 1024 * 1024 * 1024 * 5 /* 5 Gb */
   }
 
   // update view
